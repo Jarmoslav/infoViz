@@ -1,4 +1,4 @@
-Name, P/E, Volume,P/S, Change from 52-week, low, high  
+Name,P/E,Volume,P/S,Change from 52-week(%),low($),high($)  
 "Exxon Mobil Corpo",12.15,4500,0.95,+4.73,84.79,101.74
 "BOMBARDIER INC., ",12.90,3033553,0.41,+0.39,3.80,5.43
 "Johnson & Johnson",18.95,0,3.60,+15.70,75.37,95.99

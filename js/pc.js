@@ -48,7 +48,6 @@ function pc(){
         x.domain(dimensions = d3.keys(self.data[0]).filter(function(d) {
             return d != "Name" && [(y[d] = d3.scale.linear() //Remove Country
                 .domain(d3.extent(self.data, function(p) { 
-                   // console.log("p: "+JSON.stringify(p));
                     return +p[d]; }))
                 .range([height, 0]))];
         }));
@@ -94,10 +93,14 @@ function pc(){
             .on("mouseover", function(d){
                 tooltip.transition()
                 .duration(500)
-                .html()
-                .style("opacity", .9);
+                .style("opacity", .9)
+                .html("lol")
             
-                                    });
+                                    })
+            .on("click", function(d){
+                //selFeature(d);
+                addToGrid(d);
+            });
 
         
 
@@ -145,11 +148,19 @@ function pc(){
 
     //method for selecting the pololyne from other components	
     this.selectLine = function(value){
-        //...
+         
     };
+
+    //add data to to the grid
+    function addToGrid(value) {
+
+        infoGrid1.addGrid(value);
+
+    }
     
     //method for selecting features of other components
     function selFeature(value){
+        console.log(value);
         //...
     };
 
