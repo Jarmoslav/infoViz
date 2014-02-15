@@ -41,9 +41,10 @@ function pc(){
         .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
 
     //Load data
-    d3.csv("data/data_dummy.csv", function(data) {
+    d3.csv("data/data.csv", function(data) {
 
         self.data = data;
+        infoGrid1.addGrid(data);
 
         x.domain(dimensions = d3.keys(self.data[0]).filter(function(d) {
             return d != "Name" && [(y[d] = d3.scale.linear() //Remove Country
@@ -56,6 +57,9 @@ function pc(){
     });
 
     function draw(){
+
+        //adds all the stock
+        
 
         cc = {};
         var color = d3.scale.category20c();
@@ -94,7 +98,7 @@ function pc(){
                 tooltip.transition()
                 .duration(500)
                 .style("opacity", .9)
-                .html("lol")
+               
             
                                     })
             .on("click", function(d){

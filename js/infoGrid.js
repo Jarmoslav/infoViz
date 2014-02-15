@@ -4,15 +4,18 @@ function infoGrid() {
 	
   
   //create the grid with slickgrid
-/*
+
   var grid;
+
   var columns = [
-    {id: "title", name: "Title", field: "title"},
-    {id: "duration", name: "Duration", field: "duration"},
-    {id: "%", name: "% Complete", field: "percentComplete"},
-    {id: "start", name: "Start", field: "start"},
-    {id: "finish", name: "Finish", field: "finish"},
-    {id: "effort-driven", name: "Effort Driven", field: "effortDriven"}
+    {id: "stock", name: "Stock Name", field: "Stock", width: 120},
+    {id: "pe", name: "P/E", field: "pe"},
+    {id: "volume", name: "Volume", field: "volume"},
+    {id: "ps", name: "P/S", field: "ps"},
+    {id: "yearChange", name: "year change %", field: "yearChange"},
+    {id: "yearLow", name: "year low($)", field: "yearLow"},
+    {id: "yearHigh", name: "year high($)", field: "yearHigh"},
+
   ];
 
 
@@ -21,44 +24,42 @@ function infoGrid() {
     enableColumnReorder: false
   };
 
-
-
-  $(function () {
-    var data = [];
-    for (var i = 0; i < 3; i++) {
-      data[i] = {
-        title: "Task " + i,
-        duration: "5 days",
-        percentComplete: Math.round(Math.random() * 100),
-        start: "01/01/2009",
-        finish: "01/05/2009",
-        effortDriven: (i % 5 == 0)
-      };
-    }
-
-    grid = new Slick.Grid("#stockInfo", data, columns, options);
-  })
-
-*/			
-
-    
-
-
-
 //method for selecting features of other components
     function selFeature(value){
      
 
     }
 
-    this.addGrid = function(value){
-    	var theDiv = document.getElementById("stockInfo");
-        var content = document.createTextNode(value.Name+value["P/E"]);
-        theDiv.appendChild(content);    	
+    this.addGrid = function(data){
+
+    
+
+       var dataPicked = [];
+     
+	        var length = data.length;
+
+	        for (var i = 0; i < length; i++) {
+		      dataPicked[i] = {
+			        Stock: data[i]["Name"],
+			        pe: data[i]["P/E"],
+			        ps: data[i]["P/S"],
+			        volume: data[i]["Volume"],
+			        yearChange: data[i]["Change from 52-week(%)"],
+			        yearLow: data[i]["low($)"],
+			        yearHigh: data[i]["high($)"],
+            };
+        }
+        grid = new Slick.Grid("#stockInfo", dataPicked, columns, options);
+
+       
+    }
+     
+     console.log(grid);	 
+
+    function addGrid2(){
 
     }
-
-
+   
 
     //method for selecting the pololyne from other components	
     this.selectLine = function(value){
