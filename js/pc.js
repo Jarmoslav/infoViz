@@ -69,6 +69,13 @@ function pc(){
         background = svg.append("svg:g")
             .attr("class", "background")
             .selectAll("path")
+            .data(self.data)
+            .enter().append("svg:path")
+            .attr("d", path)
+            .style("stroke", function(p){
+                return color(p["Name"]);
+     
+            })
             //add the data and append the path 
             //...
             .on("mousemove", function(d){})
@@ -82,7 +89,8 @@ function pc(){
             .enter().append("svg:path")
             .attr("d", path)
             .style("stroke", function(p){
-                return color(p["Name"]);
+
+                return color(p["Name"]);   
             })
             .on("mouseout", function(d){
                 tooltip.transition()
@@ -91,14 +99,16 @@ function pc(){
 
                                   })
             .on("mouseover", function(d){
+
                 tooltip.transition()
-                .duration(500)
+                .duration(500)  
                 .style("opacity", .9)
-                .html("lol")
+                
             
                                     })
             .on("click", function(d){
                 //selFeature(d);
+                
                 addToGrid(d);
             });
 
@@ -127,12 +137,16 @@ function pc(){
             .each(function(d) { d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brush", brush)); })
             .selectAll("rect")
             .attr("x", -8)
-            .attr("width", 16);
+            .attr("width", 16)
+          
+
     }
 
     // Returns the path for a given data point.
     function path(d) {
         return line(dimensions.map(function(p) { return [x(p), y[p](d[p])]; }));
+
+
     }
 
     // Handles a brush event, toggling the display of foreground lines.
@@ -140,7 +154,12 @@ function pc(){
         var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
             extents = actives.map(function(p) { return y[p].brush.extent(); });
             foreground.style("display", function(d) {
+
             return actives.every(function(p, i) {
+                if(extents[i][0] <= d[p] && d[p] <= extents[i][1])
+                {
+                    //addToGrid(d);
+                }
                 return extents[i][0] <= d[p] && d[p] <= extents[i][1];
             }) ? null : "none";
         });
