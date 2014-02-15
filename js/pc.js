@@ -107,11 +107,7 @@ function pc(){
                 tooltip.transition()
                 .duration(500)  
                 .style("opacity", .9)
-<<<<<<< HEAD
-               
-=======
-                
->>>>>>> 6c2c91fee7d59ad6c388a288d7c0704cd97eddef
+
             
                                     })
             .on("click", function(d){
