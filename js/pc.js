@@ -8,13 +8,31 @@ function pc(){
         width = pcDiv.width() - margin[1] - margin[3],
         height = pcDiv.height() - margin[0] - margin[2];
 
+     
+     var dimensionsOfStock  = ["Company Name","Exchange:Ticker","Industry Group","Bottom up Beta for sector","Bottom up levered beta","Market Cap (in US $)",
+                            "Book Debt to capital ratio","Market Debt to capital ratio","Book Debt to Equity Ratio",
+                            "Market Debt to Equity ratio",
+                            "Standard deviation in stock price","Interest coverage ratio","PEG","EV/EBIT","EV/EBITDA",
+                            "EV/Invested Capital","EV/Sales","Dividend Yield","Historical growth in Net Income - Last 3 years",
+                            "Historical growth in Net Income - Last 5 years","Historical growth in Revenues - Last 3 years",
+                            "Historical growth in Revenues - Last 5 years","Expected growth rate in EPS- Next 5 years","Expected growth in revenues - Next 2 years",
+                            "Return on Equity,Return on Capital (ROC or ROIC)","Net Profit Margin,Pre-tax Operating Margin","Effective Tax Rate",
+                            "% held by institutions","Net Income","Trailing Net Income","Operating Income","Trailing Operating Income (adj for leases)",
+                            "Revenues","Trailing Revenues,EBITDA","Trailing EBITDA","EBIT (1-t)","Net Debt issued (Debt issue - repaid)",
+                            "Change in non-cash Working capital","Net Cap Ex","Reinvestment Rate","FCFF","FCFE","FCFE without debt","Book Value of Equity - 4 qtrs ago",
+                            "Invested Capital - 4 qtre ago","Current Book Value of Equity","Current Invested Capital","Dividends","Modified 2-year beta","Modified 5-year beta",
+                            "Beta adjustment factor","Coeff of variation - Op Income","Coeff of variation - Net Income",
+                            "Average 10-year EBIT","Average 10-yr Net Income", "EBITDA", "Cash/ Firm Value", "Stock price (Dec 31, 2012)in US$",
+                            "Return on Capital (ROC or ROIC)", "Net Profit Margin", "Pre-tax Operating Margin","Total Debt", "Cash", "Correlation with market",
+                            "Return on Equity", "Trailing Revenues"]
+
     
     //initialize color scale
     //...
     
     //initialize tooltip
 
-   
+   dimensionsOfStock;
     var tooltip = d3.select("#body").append("div")
                     .attr("class", "tooltip")
                     .style("opacity",0);
@@ -41,17 +59,41 @@ function pc(){
         .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
 
     //Load data
-    d3.csv("data/data.csv", function(data) {
+    d3.csv("data/svenska_aktier2.csv", function(data) {
 
         self.data = data;
-        infoGrid1.addGrid(data);
+
+       
+       infoGrid1.addGrid(data);
 
         x.domain(dimensions = d3.keys(self.data[0]).filter(function(d) {
-            return d != "Name" && [(y[d] = d3.scale.linear() //Remove Country
+            return d !=  mrParser(d) && [(y[d] = d3.scale.linear() //Remove Country
                 .domain(d3.extent(self.data, function(p) { 
                     return +p[d]; }))
                 .range([height, 0]))];
         }));
+
+
+
+
+        function mrParser(d){
+            var l = dimensionsOfStock.length;
+            var i;
+            
+            for(i=0; i<l;i++){
+                 if(d != dimensionsOfStock[i]){
+
+                
+                }
+                else {
+                    console.log(d);
+                    return d;
+                }
+                    
+            }
+
+            
+        }
 
         draw();
     });
@@ -59,14 +101,13 @@ function pc(){
     function draw(){
 
         //adds all the stock
-        
 
         cc = {};
         var color = d3.scale.category20c();
 
 
         self.data.forEach(function(d){
-            cc[d["Tick"]] = color(d["Tick"]);
+            cc[d["Company Name"]] = color(d["Company Name"]);
         });
 
         // Add grey background lines for context.
@@ -77,7 +118,7 @@ function pc(){
             .enter().append("svg:path")
             .attr("d", path)
             .style("stroke", function(p){
-                return color(p["Name"]);
+                return color(p["Company Name"]);
      
             })
             //add the data and append the path 
@@ -94,7 +135,7 @@ function pc(){
             .attr("d", path)
             .style("stroke", function(p){
 
-                return color(p["Name"]);   
+                return color(p["Company Name"]);   
             })
             .on("mouseout", function(d){
                 tooltip.transition()
@@ -112,8 +153,8 @@ function pc(){
                                     })
             .on("click", function(d){
                 //selFeature(d);
-                
-                addToGrid(d);
+                console.log(d);
+                //addToGrid(d);
             });
 
         
